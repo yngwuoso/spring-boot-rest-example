@@ -13,13 +13,17 @@ pipeline {
 		
 		stage('Pregunta') {
 			steps {
-				input message: "¿Desea realizar el paso a pre-producción?", ok: "Aceptar"
+				input message: "¿Desea crear la imagen?", ok: "Aceptar"
 			}
 		}
 		
-		stage('Despliegue') {
+		stage('Creación de la imagen ejecutando el Dockerfile') {
 			steps {
-				sh "echo terminado"
+				openshift.withCluster() {
+					openshift.withProject() {
+						sh "cat Dockerfile | oc new-build --name node-container --dockerfile='-'"
+					}
+				} 
 			}
 		}
 	}
