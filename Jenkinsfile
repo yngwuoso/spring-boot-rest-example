@@ -19,11 +19,7 @@ pipeline {
 		
 		stage('Creación de la imagen ejecutando el Dockerfile') {
 			steps {
-				openshift.withCluster() {
-					openshift.withProject() {
-						sh "cat Dockerfile | oc new-build --name node-container --dockerfile='-'"
-					}
-				} 
+				sh "cat Dockerfile | oc new-build --name node-container --dockerfile='-'" 
 			}
 		}
 	}
