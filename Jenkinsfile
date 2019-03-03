@@ -29,7 +29,7 @@ pipeline {
 	      steps {
 	        script {
 	          openshift.withCluster() {
-	            openshift.newBuild("--name=rsexample", "--binary")
+	            openshift.newBuild("--name=rsexample", "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift", "--binary=true")
 	          }
 	        }
 	      }
@@ -39,7 +39,7 @@ pipeline {
 	      steps {
 	        script {
 	          openshift.withCluster() {
-	            openshift.selector("bc", "rsexample").startBuild("--from-file=target/spring-boot-rest-example-0.0.1-SNAPSHOT.jar", "--wait")
+	            openshift.selector("bc", "rsexample").startBuild("--from-file=target/spring-boot-rest-example-0.0.1-SNAPSHOT.jar", "--follow")
 	          }
 	        }
 	      }
