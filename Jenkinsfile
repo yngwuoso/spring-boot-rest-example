@@ -29,7 +29,7 @@ pipeline {
 	      steps {
 	        script {
 	          openshift.withCluster() {
-	            openshift.newBuild("--name=rsexample", "--image-stream=registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift", "--binary=true")
+	            openshift.newBuild("--name=rsexample", "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift", "--binary=true")
 	          }
 	        }
 	      }
